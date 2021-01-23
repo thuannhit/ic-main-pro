@@ -1,0 +1,148 @@
+<nz-card>
+    <nz-tabset>
+        <nz-tab [nzTitle]="topupTemplate">
+            <ng-template #topupTemplate>
+                <i nz-icon nzType="dollar"></i>
+                Topup
+            </ng-template>
+            <nz-spin nzTip="Loading..." [nzSpinning]="isTopuping">
+                <div class="col-lg-10 col-xl-8 col-xxl-5">
+                    <form nz-form [formGroup]="topupForm" (ngSubmit)="doTopup()">
+                        <nz-form-item>
+                            <nz-form-label [nzMd]="24" [nzLg]="6" nzRequired nzFor="customer">Customer
+                            </nz-form-label>
+                            <nz-form-control [nzMd]="24" [nzLg]="18">
+                                <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select Customer"
+                                    formControlName='customer'>
+                                    <nz-option *ngFor="let customer of listOfCustomers" nzCustomContent
+                                        [nzLabel]="customer.name" [nzValue]="customer._id">
+                                        <i nz-icon nzType="user"></i> {{customer.name}} - {{customer.email}}
+                                    </nz-option>
+                                </nz-select>
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-label [nzMd]="24" [nzLg]="6" nzRequired nzFor="amount">Amount
+                            </nz-form-label>
+                            <nz-form-control [nzMd]="24" [nzLg]="18">
+                                <nz-input-number style="width: -webkit-fill-available;" nz-input placeholder="Amount"
+                                    [nzMin]="0" nzSize="small" formControlName="amount">
+                                </nz-input-number>
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-label [nzMd]="24" [nzLg]="6" nzRequired nzFor="date">Date
+                            </nz-form-label>
+                            <nz-form-control [nzMd]="24" [nzLg]="18">
+                                <nz-date-picker style="width: -webkit-fill-available;" nzShowTime
+                                    [nzFormat]="'dd/MM/yyyy HH:mm:ss'" name="endDate" formControlName="date">
+                                </nz-date-picker>
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-label [nzMd]="24" [nzLg]="6" nzRequired nzFor="note">Note
+                            </nz-form-label>
+                            <nz-form-control [nzMd]="24" [nzLg]="18">
+                                <input nz-input style="width: -webkit-fill-available;" nzSize="default"
+                                    formControlName="note" />
+                            </nz-form-control>
+                        </nz-form-item>
+                        <div class="d-flex align-items-center justify-content-between">
+                            <nz-form-item>
+                                <nz-form-control>
+                                    <label>
+                                        <span></span>
+                                    </label>
+                                </nz-form-control>
+                            </nz-form-item>
+                            <nz-form-item>
+                                <nz-form-control>
+                                    <div>
+                                        <button nz-button [nzType]="'primary'">Topup</button>
+                                    </div>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                    </form>
+                </div>
+            </nz-spin>
+        </nz-tab>
+        <nz-tab [nzTitle]="withdrawTemplate">
+            <ng-template #withdrawTemplate>
+                <i nz-icon nzType="money-collect"></i>
+                Withdraw
+            </ng-template>
+            <nz-spin nzTip="Loading..." [nzSpinning]="isWithdrawing">
+                <div class="col-lg-10 col-xl-8 col-xxl-5">
+
+                    <form nz-form [formGroup]="withdrawForm" (ngSubmit)="doWithdraw()">
+                        <nz-form-item>
+                            <nz-form-label [nzMd]="24" [nzLg]="6" nzRequired nzFor="customer">Customer
+                            </nz-form-label>
+                            <nz-form-control [nzMd]="24" [nzLg]="18">
+                                <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select Customer"
+                                    formControlName='customer'>
+                                    <nz-option *ngFor="let customer of listOfCustomers" nzCustomContent
+                                        [nzLabel]="customer.name" [nzValue]="customer._id">
+                                        <i nz-icon nzType="user"></i> {{customer.name}} - {{customer.email}}
+                                    </nz-option>
+                                </nz-select>
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-label [nzMd]="24" [nzLg]="6" nzRequired nzFor="amount">Amount
+                            </nz-form-label>
+                            <nz-form-control [nzMd]="24" [nzLg]="18">
+                                <nz-input-number style="width: -webkit-fill-available;" nz-input placeholder="Amount"
+                                    [nzMin]="0" nzSize="small" formControlName="amount">
+                                </nz-input-number>
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-label [nzMd]="24" [nzLg]="6" nzRequired nzFor="date">Date
+                            </nz-form-label>
+                            <nz-form-control [nzMd]="24" [nzLg]="18">
+                                <nz-date-picker style="width: -webkit-fill-available;" nzShowTime
+                                    [nzFormat]="'dd/MM/yyyy HH:mm:ss'" name="date" formControlName="date">
+                                </nz-date-picker>
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-label [nzMd]="24" [nzLg]="6" nzRequired nzFor="note">Note
+                            </nz-form-label>
+                            <nz-form-control [nzMd]="24" [nzLg]="18">
+                                <input nz-input style="width: -webkit-fill-available;" nzSize="default"
+                                    formControlName="note" />
+                            </nz-form-control>
+                        </nz-form-item>
+                        <div class="d-flex align-items-center justify-content-between">
+                            <nz-form-item>
+                                <nz-form-control>
+                                    <label>
+                                        <span></span>
+                                    </label>
+                                </nz-form-control>
+                            </nz-form-item>
+                            <nz-form-item>
+                                <nz-form-control>
+                                    <div>
+                                        <button nz-button [nzType]="'primary'">Withdraw</button>
+                                    </div>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                    </form>
+                </div>
+            </nz-spin>
+        </nz-tab>
+        <nz-tab [nzTitle]="financialStatementTemplate">
+            <ng-template #financialStatementTemplate>
+                <i nz-icon nzType="bar-chart"></i>
+                Financial Statements
+            </ng-template>
+            <div class="col-12">
+                <financial-statement></financial-statement>
+            </div>
+        </nz-tab>
+    </nz-tabset>
+</nz-card>

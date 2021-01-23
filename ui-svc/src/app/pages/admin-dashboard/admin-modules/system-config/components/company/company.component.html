@@ -1,0 +1,85 @@
+<div class="row">
+    <div class="col-lg-12">
+        <nz-table #nzTable [nzData]="listOfDisplayData" nzTableLayout="fixed">
+            <thead>
+                <tr>
+                    <th nzCustomFilter>
+                        Name
+                        <nz-filter-trigger [(nzVisible)]="visible" [nzActive]="searchValue.length > 0"
+                            [nzDropdownMenu]="menu">
+                            <i nz-icon nzType="search"></i>
+                        </nz-filter-trigger>
+                    </th>
+                    <th>Tax Code</th>
+                    <th>Address</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of nzTable.data">
+                    <td>{{ data.company_name }}</td>
+                    <td>{{ data.tax_code }}</td>
+                    <td>{{ data.address }}</td>
+                </tr>
+            </tbody>
+        </nz-table>
+        <nz-dropdown-menu #menu="nzDropdownMenu">
+            <div class="ant-table-filter-dropdown">
+                <div class="search-box">
+                    <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue" />
+                    <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">
+                        Search
+                    </button>
+                    <button nz-button nzSize="small" (click)="reset()">Reset</button>
+                </div>
+            </div>
+        </nz-dropdown-menu>
+    </div>
+</div>
+<div class="row" *ngIf='!isCreatingNewOne'>
+    <div class="col-lg-12">
+        <nz-empty nzNotFoundImage="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+            [nzNotFoundContent]="contentTpl" [nzNotFoundFooter]="footerTpl">
+            <ng-template #contentTpl>
+                <span> Easy to create a new Company </span>
+            </ng-template>
+            <ng-template #footerTpl>
+                <button nz-button nzType="primary" (click)="onClickCreateNewCompany()">Create Now</button>
+            </ng-template>
+        </nz-empty>
+    </div>
+</div>
+<div class="row" *ngIf='isCreatingNewOne'>
+    <div class="col-lg-12">
+        <nz-card nzHoverable nzTitle="Create new Company" [nzExtra]="closeTemplate">
+            <form nz-form [formGroup]="newCompanyForm" (ngSubmit)="doCreateNewCompany()">
+                <nz-form-item>
+                    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired [nzFor]="companyName">Company Name
+                    </nz-form-label>
+                    <nz-form-control [nzSm]="14" [nzXs]="24">
+                        <input nz-input placeholder="Company Name" formControlName="companyName" />
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired [nzFor]="address">Address</nz-form-label>
+                    <nz-form-control [nzSm]="14" [nzXs]="24">
+                        <input nz-input placeholder="Address" formControlName="address" />
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired [nzFor]="taxCode">Tax Code
+                    </nz-form-label>
+                    <nz-form-control [nzSm]="14" [nzXs]="24">
+                        <input nz-input placeholder="Tax Code" formControlName="taxCode" />
+                    </nz-form-control>
+                </nz-form-item>
+            </form>
+        </nz-card>
+    </div>
+    <ng-template #closeTemplate>
+        <button nz-button nzType="primary" [nzSize]="size" nzShape="circle" nzTooltipTitle="Save"
+            nzTooltipPlacement="top" (click)="doCreateNewCompany()"><i nz-icon nzType="check"></i></button>
+        <button nz-button nzType="default" [nzSize]="size" nzShape="circle" nzDanger nzTooltipTitle="Cancel"
+            nzTooltipPlacement="top" (click)="onClickCancelCompanyCreationForm()"><i nz-icon
+                nzType="close"></i></button>
+    </ng-template>
+</div>

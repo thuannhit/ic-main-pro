@@ -1,0 +1,1 @@
+export { FinancialStatementComponent } from './financial-statements.component'

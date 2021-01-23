@@ -1,0 +1,55 @@
+<form nz-form [formGroup]="financialStatementForm" (ngSubmit)="doWatch()" [nzLayout]="'vertical'">
+    <nz-form-item>
+        <nz-form-label [nzMd]="24" [nzLg]="8" nzRequired nzFor="customer">Customer
+        </nz-form-label>
+        <nz-form-control [nzMd]="24" [nzLg]="16">
+            <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select Customer" formControlName='customer'>
+                <nz-option *ngFor="let customer of listOfCustomers" nzCustomContent [nzLabel]="customer.name"
+                    [nzValue]="customer._id">
+                    <i nz-icon nzType="user"></i> {{customer.name}} - {{customer.email}}
+                </nz-option>
+            </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzMd]="24" [nzLg]="8" nzRequired nzFor="amount">Range
+        </nz-form-label>
+        <nz-form-control [nzMd]="24" [nzLg]="16">
+            <nz-range-picker [nzFormat]="'dd-MM-yyyy'" formControlName="rangeDate"></nz-range-picker>
+        </nz-form-control>
+    </nz-form-item>
+    <div>
+        <nz-form-item>
+            <nz-form-control>
+                <div>
+                    <button nz-button [nzType]="'primary'">Watch</button>
+                </div>
+            </nz-form-control>
+        </nz-form-item>
+    </div>
+</form>
+<nz-table nzShowSizeChanger [nzData]="listOfStatements" [nzFrontPagination]="false" [nzLoading]="loading"
+    [nzTotal]="total" [nzPageSize]="pageSize" [nzPageIndex]="pageIndex" (nzQueryParams)="onQueryParamsChange($event)">
+    <thead>
+        <tr>
+            <th nzColumnKey="date">Date</th>
+            <th nzColumnKey="amount">Amount</th>
+            <th nzColumnKey="balance">Balance</th>
+            <th nzColumnKey="note">Note</th>
+            <th nzColumnKey="created_by">Created by</th>
+            <th nzColumnKey="created_at">Created at</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of listOfStatements">
+            <td>{{ data.date | date: 'dd/MM/yyyy' }}</td>
+            <td>
+                <span [ngStyle]="data.action == 1 ? {color: blue} : {color: red}">{{data.amount}}</span>
+            </td>
+            <td>{{ data.balance }}</td>
+            <td>{{ data.note }}</td>
+            <td>{{ data.created_by }}</td>
+            <td>{{ data.created_at | date: 'dd/MM/yyyy' }}</td>
+        </tr>
+    </tbody>
+</nz-table>

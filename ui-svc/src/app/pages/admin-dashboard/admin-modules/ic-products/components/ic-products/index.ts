@@ -1,0 +1,1 @@
+export { ICProductsComponent } from './ic-products.component'

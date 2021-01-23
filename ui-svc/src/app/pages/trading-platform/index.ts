@@ -1,0 +1,1 @@
+export { TradingPlatformModule } from './trading-platform.module'

@@ -1,0 +1,173 @@
+<div class="row">
+    <div *ngFor="let product of listOfData" class="col-md-6 col-lg-4 col-xl-3">
+        <nz-card nzHoverable (click)="onSelectCard(product)" [ngClass]="{'card-selected': product.isSelected} ">
+            <span nz-tooltip nzTooltipTitle="product.isSelected ? 'Selected" class="selection"> <i nz-icon
+                    nzType="check-circle" theme="outline" class='icon-class'></i> </span>
+
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <p class="m-b-0 text-muted">{{product.name}}</p>
+                    <h2 class="m-b-0">{{product.price | currency:'VND'}}</h2>
+                </div>
+                <nz-tag class="m-r-0 m-b-0" [nzColor]="product.interest_rate > 12 ? 'purple' : 'cyan'">
+                    <i nz-icon nzType="arrow-up" theme="outline"></i>
+                    <span class="font-weight-semibold m-l-5">{{product.interest_rate}}%</span>
+                </nz-tag>
+            </div>
+            <div class="m-t-40">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <nz-badge nzStatus="default" [nzColor]="product.period > 12 ? purple : blue"></nz-badge>
+                        <span class="text-gray font-weight-semibold font-size-13">Period</span>
+                    </div>
+                    <span class="text-dark font-weight-semibold font-size-13">{{product.period}} months </span>
+                </div>
+                <nz-progress [nzStrokeColor]="product.period > 12 ? purple : blue" nzPercent="70" nzSize="small"
+                    [nzShowInfo]="false"></nz-progress>
+            </div>
+        </nz-card>
+    </div>
+    <!-- <div class="col-md-3">
+        <nz-card nzHoverable>
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <p class="m-b-0 text-muted">Sales</p>
+                    <h2 class="m-b-0">$23,523</h2>
+                </div>
+                <nz-tag class="m-r-0 m-b-0" [nzColor]="'cyan'">
+                    <i nz-icon nzType="arrow-up" theme="outline"></i>
+                    <span class="font-weight-semibold m-l-5">6.71%</span>
+                </nz-tag>
+            </div>
+            <div class="m-t-40">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <nz-badge nzStatus="default" [nzColor]="blue"></nz-badge>
+                        <span class="text-gray font-weight-semibold font-size-13">Monthly Goal</span>
+                    </div>
+                    <span class="text-dark font-weight-semibold font-size-13">70% </span>
+                </div>
+                <nz-progress [nzStrokeColor]="blue" nzPercent="70" nzSize="small" [nzShowInfo]="false"></nz-progress>
+            </div>
+        </nz-card>
+    </div>
+    <div class="col-md-3">
+        <nz-card nzHoverable>
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <p class="m-b-0 text-muted">Margin</p>
+                    <h2 class="m-b-0">$8,753</h2>
+                </div>
+                <nz-tag class="m-r-0 m-b-0" [nzColor]="'red'">
+                    <i nz-icon nzType="arrow-down" theme="outline"></i>
+                    <span class="font-weight-semibold m-l-5">3.26%</span>
+                </nz-tag>
+            </div>
+            <div class="m-t-40">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <nz-badge nzStatus="default" [nzColor]="cyan"></nz-badge>
+                        <span class="text-gray font-weight-semibold font-size-13">Monthly Goal</span>
+                    </div>
+                    <span class="text-dark font-weight-semibold font-size-13">60%</span>
+                </div>
+                <nz-progress [nzStrokeColor]="cyan" nzPercent="60" nzSize="small" [nzShowInfo]="false">
+                </nz-progress>
+            </div>
+        </nz-card>
+    </div>
+    <div class="col-md-3">
+        <nz-card nzHoverable>
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <p class="m-b-0 text-muted">Affiliate</p>
+                    <h2 class="m-b-0">236</h2>
+                </div>
+                <nz-tag class="m-r-0 m-b-0" [nzColor]="'gold'">
+                    <span class="font-weight-semibold m-l-5">N/A</span>
+                </nz-tag>
+            </div>
+            <div class="m-t-40">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <nz-badge nzStatus="default" [nzColor]="purple"></nz-badge>
+                        <span class="text-gray font-weight-semibold font-size-13">Monthly Goal</span>
+                    </div>
+                    <span class="text-dark font-weight-semibold font-size-13">50%</span>
+                </div>
+                <nz-progress [nzStrokeColor]="purple" nzPercent="80" nzSize="small" [nzShowInfo]="false">
+                </nz-progress>
+            </div>
+        </nz-card>
+    </div> -->
+
+</div>
+<div class="row" *ngIf='isSelectingICProduct'>
+    <div class="col-lg-12">
+        <ic-publishion [icProduct]="oSelectedICProduct" (parentFun)="onCancelICPublishingForm()"></ic-publishion>
+    </div>
+</div>
+<div class="row" *ngIf='!isCreatingNewOne'>
+    <div class="col-lg-12">
+        <nz-empty nzNotFoundImage="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+            [nzNotFoundContent]="contentTpl" [nzNotFoundFooter]="footerTpl">
+            <ng-template #contentTpl>
+                <span>See more on <a href="http://af1.vn/san-pham/san-pham-ic-investment-certificate-206.html"
+                        target="_blank">IC Products</a> </span>
+            </ng-template>
+            <ng-template #footerTpl>
+                <button nz-button nzType="primary" (click)="onICProductCreationForm()">Create Now</button>
+            </ng-template>
+        </nz-empty>
+    </div>
+</div>
+<div class="row" *ngIf='isCreatingNewOne'>
+    <div class="col-12">
+        <nz-card nzHoverable nzTitle="Create new IC Product" [nzExtra]="closeTemplate">
+            <form class='col-12 col-lg-10 col-xl-8' nz-form [formGroup]="newICProductForm"
+                (ngSubmit)="doCreateNewICProduct()">
+                <nz-form-item>
+                    <nz-form-label [nzMd]="24" [nzLg]="6" [nzFor]="icCompany">Company</nz-form-label>
+                    <nz-form-control [nzMd]="24" [nzLg]="18" nzHasFeedback>
+                        <nz-select ngModel="AF" formControlName="icCompany">
+                            <nz-option nzValue="AF" nzLabel="AF1">ASDFSDF</nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label [nzMd]="24" [nzLg]="6" nzRequired [nzFor]="icProductName">IC Product Name
+                    </nz-form-label>
+                    <nz-form-control [nzMd]="24" [nzLg]="18">
+                        <input nz-input placeholder="Name" formControlName="icProductName" />
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label [nzMd]="24" [nzLg]="6" nzRequired [nzFor]="icPeriod">IC Period</nz-form-label>
+                    <nz-form-control [nzMd]="24" [nzLg]="18">
+                        <input nz-input placeholder="Period - months" formControlName="icPeriod" />
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label [nzMd]="24" [nzLg]="6" nzRequired [nzFor]="icInterestRate">IC Interest Rate
+                    </nz-form-label>
+                    <nz-form-control [nzMd]="24" [nzLg]="18">
+                        <nz-input-number style="width: -webkit-fill-available;" [nzMin]="1" [nzMax]="100" [nzStep]="0.1" placeholder="Interest rate (%)"
+                            formControlName="icInterestRate"></nz-input-number>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label [nzMd]="24" [nzLg]="6" nzRequired [nzFor]="icPrice">IC Price</nz-form-label>
+                    <nz-form-control [nzMd]="24" [nzLg]="18">
+                        <input nz-input placeholder="Price" formControlName="icPrice" />
+                    </nz-form-control>
+                </nz-form-item>
+            </form>
+        </nz-card>
+    </div>
+    <ng-template #closeTemplate>
+        <button nz-button nzType="primary" [nzSize]="size" nzShape="circle" nzTooltipTitle="Save"
+            nzTooltipPlacement="top"><i nz-icon nzType="check" (click)="doCreateNewICProduct()"></i></button>
+        <button nz-button nzType="default" [nzSize]="size" nzShape="circle" nzDanger nzTooltipTitle="Cancel"
+            nzTooltipPlacement="top" (click)="onClickCancelICCreationForm()"><i nz-icon nzType="close"></i></button>
+    </ng-template>
+</div>

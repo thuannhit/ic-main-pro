@@ -1,0 +1,39 @@
+<nz-card>
+    <nz-table #listViewTable [nzData]="listOfData">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of listViewTable.data">
+                <td>
+                    <h6 class="mb-0">{{item._id}}</h6>
+                </td>
+                <td>
+                    <h6 class="mb-0">{{item.name}}</h6>
+                </td>
+                <td>
+                    <span class="text-gray">{{item.email}}</span>
+                </td>
+                <td>
+                    <span class="text-gray">{{item.phone_number}}</span>
+                </td>
+                <td class="text-right">
+                    <!-- <a [routerLink]="['/pages/profile']" nz-button nzType="primary" nzGhost>
+                        <i nz-icon nzType="mail" theme="outline"></i>
+                        <span class="m-l-5">Contact</span>
+                    </a> -->
+                    <a z-button nzType="primary" nzGhost>
+                        <i nz-icon nzType="mail" theme="outline"></i>
+                        <span class="m-l-5">Contact</span>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+</nz-card>

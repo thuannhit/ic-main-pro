@@ -1,0 +1,1 @@
+export { ICProductsHomeModule } from './ic-products-home.module'
